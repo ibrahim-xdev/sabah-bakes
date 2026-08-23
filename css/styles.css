@@ -327,7 +327,7 @@ h2 {
   position: absolute;
   inset: -10% -14% -14% -6%;
   background:
-    radial-gradient(circle at 20% 20%, var(--gold) 0 30%, transparent 31%),
+    radial-gradient(circle at 20% 20%, var(--rose) 0 30%, transparent 31%),
     radial-gradient(circle at 85% 75%, var(--rose-tint) 0 40%, transparent 41%);
   opacity: 0.55;
   filter: blur(2px);

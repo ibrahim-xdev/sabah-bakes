@@ -175,12 +175,22 @@ h2 {
   gap: 1.5rem;
   padding-top: 14px;
   padding-bottom: 14px;
+  min-width: 0;
 }
 .brand {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--choc);
+  white-space: nowrap;
 }
 .brand-mark {
   width: 30px;
@@ -211,6 +221,8 @@ h2 {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-shrink: 0;
+  min-width: 0;
 }
 .rating-chip {
   display: flex;
@@ -980,9 +992,35 @@ h2 {
     display: none;
   }
 
+  .header-inner {
+    gap: 0.75rem;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    gap: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  /*
+    Keep WhatsApp visible on mobile.
+    The button becomes more compact so the menu icon
+    always has enough room.
+  */
+  #whatsapp-cta {
+    display: inline-flex;
+    padding: 0.55em 0.85em;
+    font-size: 0.82rem;
+    gap: 0.35em;
+  }
+
   .nav-toggle {
     display: flex;
-    margin-left: auto;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    margin-left: 0;
+    padding: 0;
   }
 
   .site-header.is-open .main-nav {
@@ -1016,7 +1054,6 @@ h2 {
     row-gap: clamp(24px, 6vw, 40px);
   }
 }
-
 @media (max-width: 620px) {
   /* Two-up info bar wraps oddly at three items — let it breathe as a column. */
   .info-strip-inner {

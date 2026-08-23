@@ -985,6 +985,7 @@ h2 {
   }
   .nav-toggle {
     display: flex;
+    margin: auto;
   }
   .site-header.is-open .main-nav {
     display: flex;

@@ -81,7 +81,7 @@ code {
 .wrap {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 clamp(16px, 4.5vw, 28px);
 }
 
 h1,
@@ -256,13 +256,13 @@ h2 {
 /* --------------------------------- HERO ---------------------------------- */
 .hero {
   position: relative;
-  padding: 64px 0 96px;
+  padding: clamp(40px, 7vw, 64px) 0 clamp(56px, 10vw, 96px);
   overflow: hidden;
 }
 .hero-inner {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
+  gap: clamp(32px, 6vw, 56px);
   align-items: center;
 }
 .hero-title {
@@ -327,10 +327,10 @@ h2 {
   position: absolute;
   inset: -10% -14% -14% -6%;
   background:
-    radial-gradient(circle at 20% 20%, var(--rose-dark) 0 30%, transparent 31%),
+    radial-gradient(circle at 20% 20%, var(--gold) 0 30%, transparent 31%),
     radial-gradient(circle at 85% 75%, var(--rose-tint) 0 40%, transparent 41%);
   opacity: 0.55;
-  filter: blur(10px);
+  filter: blur(2px);
   z-index: 0;
 }
 .hero-media-tag {
@@ -412,7 +412,7 @@ h2 {
 /* -------------------------------- SCALLOP -------------------------------- */
 .section {
   position: relative;
-  padding: 88px 0;
+  padding: clamp(48px, 8vw, 88px) 0;
 }
 .section-alt {
   background: var(--cream-alt);
@@ -481,7 +481,7 @@ h2 {
 .about-grid {
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
-  gap: 64px;
+  gap: clamp(28px, 6vw, 64px);
   align-items: start;
 }
 .about-text {
@@ -532,7 +532,7 @@ h2 {
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 28px;
+  gap: clamp(18px, 3vw, 28px);
 }
 .menu-card {
   background: var(--card);
@@ -637,7 +637,7 @@ h2 {
 .reviews-grid {
   display: grid;
   grid-template-columns: 0.9fr 1.6fr;
-  gap: 56px;
+  gap: clamp(28px, 6vw, 56px);
   align-items: start;
 }
 .reviews-summary {
@@ -687,12 +687,13 @@ h2 {
   font-weight: 700;
 }
 .breakdown-track {
-  background: var(--cream-alt);
+  background: var(--card);
   border-radius: 100px;
   height: 8px;
   overflow: hidden;
 }
 .breakdown-fill {
+  display: block;
   background: var(--gold-dark);
   height: 100%;
   border-radius: 100px;
@@ -809,7 +810,7 @@ h2 {
 .visit-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 56px;
+  gap: clamp(28px, 6vw, 56px);
   align-items: start;
 }
 .hours-table {
@@ -938,12 +939,20 @@ h2 {
   color: rgba(255, 248, 239, 0.8);
 }
 .footer-bottom {
-  padding: 20px 28px 28px;
+  padding: 20px clamp(16px, 4.5vw, 28px) 28px;
   font-size: 0.8rem;
   color: rgba(255, 248, 239, 0.55);
 }
 
-/* -------------------------------- RESPONSIVE ------------------------------- */
+/* -------------------------------- RESPONSIVE -------------------------------
+   Breakpoints: 980 (tablet — stack two-column layouts), 760 (phone — collapse
+   nav, tighten section rhythm), 480 (small phone — centre hero, stack
+   buttons), 380 (compact phone — final size/space trims).
+   Padding and gaps above are already fluid via clamp(); everything below
+   handles layout SHAPE changes (columns, ordering, alignment) that clamp()
+   can't do on its own.
+   ============================================================================ */
+
 @media (max-width: 980px) {
   .hero-inner,
   .about-grid,
@@ -952,8 +961,9 @@ h2 {
   }
   .hero-media {
     order: -1;
+    width: 100%;
     max-width: 420px;
-    margin: 0 auto 2rem;
+    margin: 0 auto clamp(20px, 5vw, 32px);
   }
   .reviews-grid {
     grid-template-columns: 1fr;
@@ -962,7 +972,7 @@ h2 {
     position: static;
   }
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -984,31 +994,197 @@ h2 {
     left: 0;
     right: 0;
     background: var(--cream);
-    padding: 20px 28px;
+    padding: 18px clamp(16px, 4.5vw, 28px) 22px;
     border-bottom: 1px solid var(--line);
-    gap: 1rem;
+    gap: 0.25rem;
     box-shadow: var(--shadow);
   }
-  .hero {
-    padding: 40px 0 72px;
+  .site-header.is-open .main-nav a {
+    padding: 0.6rem 0.2rem;
   }
-  .section {
-    padding: 64px 0;
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .wrap {
-    padding: 0 20px;
+  .menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .about-grid,
+  .visit-grid {
+    row-gap: clamp(24px, 6vw, 40px);
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 620px) {
+  /* Two-up info bar wraps oddly at three items — let it breathe as a column. */
+  .info-strip-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 18px clamp(16px, 4.5vw, 28px);
+  }
+  .info-item {
+    width: 100%;
+  }
+  .info-services {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    gap: 0.75rem;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .brand-name {
+    font-size: 1.12rem;
+  }
+  .brand-mark {
+    width: 26px;
+    height: 26px;
+  }
+  .rating-chip {
+    font-size: 0.82rem;
+    padding: 0.35em 0.65em;
+  }
+  .rating-chip-count {
+    display: none;
+  } /* keep the header chip compact; full count still shown in hero + reviews */
+
+  .hero-copy {
+    text-align: center;
+  }
+  .hero-stats {
+    justify-content: center;
+  }
+  .hero-cta {
+    justify-content: center;
+  }
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta .btn,
+  .visit-actions .btn {
+    flex: 1 1 160px;
+  }
+
+  .stat-pill {
+    min-width: 0;
+    flex: 1 1 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .section-head {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section-head .section-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-copy {
+    text-align: center;
+  }
+  .about-copy .pill-list {
+    justify-content: center;
+  }
+  .owner-note {
+    text-align: left;
+  } /* keep the handwritten note left-aligned — reads oddly centred */
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
+  }
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
+
+  .reviews-summary {
+    text-align: center;
+  }
+  .summary-score {
+    justify-content: center;
+  }
+  .breakdown {
+    text-align: left;
+  } /* bars need left alignment to stay readable */
+  .tags-list {
+    justify-content: center;
+  }
+
+  .review-head {
+    flex-wrap: wrap;
+  }
+  .review-head > div:not(.review-avatar) {
+    flex: 1;
+    min-width: 0;
+  }
+  .review-time {
+    margin-left: 0;
+    width: 100%;
+    order: 3;
+  }
+
+  .visit-copy {
+    text-align: center;
+  }
+  .hours-table td:first-child {
+    width: auto;
+  }
+  .visit-actions {
+    justify-content: center;
+  }
+  .popular-times-chart {
+    padding: 0;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 1.6rem;
+    text-align: center;
+  }
+  .footer-nav {
+    justify-content: center;
+  }
+  .footer-contact {
+    align-items: center;
+  }
+  .footer-bottom {
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.4rem);
+  }
   .hero-stats {
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
   .stat-pill {
-    min-width: 100px;
+    padding: 0.55em 0.7em;
+    min-width: 88px;
+  }
+  .hero-cta .btn,
+  .visit-actions .btn {
+    flex: 1 1 100%;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .btn {
+    padding: 0.8em 1.3em;
+    font-size: 0.9rem;
   }
 }
